@@ -17,6 +17,9 @@ import sys
 import logging # vigade logimiseks ja muudeks
 from enum import Enum # staatuse klass,
 from dateutil.parser import parse 
+from cmd import Cmd
+import json
+from datetime import date, datetime
 
 class RaamatuStaatus(Enum):
     arhiveeritud = 0
@@ -31,12 +34,19 @@ logging.basicConfig(filename="raamatukogu.log", level=logging.INFO, format=FORMA
 
 log.info("\n\tKäivitati skript ...\n")
 
-dbServerName    = "localhost"
+dbServerName    = "127.0.0.1" # localhost
 dbUser          = "kitsemampsel"
 dbPassword      = "e6FkVoF4d3PGiEG7"
 dbName          = "raamatukogu"
 charSet         = "utf8mb4"
 cusrorType      = pymysql.cursors.DictCursor 
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
 
 def LooRaamatukogu():
     '''
@@ -77,7 +87,29 @@ def LisaRaamat(raamatud):
     -- Lisab ühe raamatu andmebaasi
     '''
     pass 
+def OtsiAndmebaasist(*args):
+    conn = pymysql.connect(host=dbServerName,
+                             user=dbUser,
+                             password=dbPassword,
+                             db=dbName)
+    cur = conn.cursor()
+    sql = """SELECT * FROM raamatukogu WHERE MATCH (title,author,isbn) AGAINST (%s IN NATURAL LANGUAGE MODE);"""
+    
+    cur.execute(sql, args)
+    raamatud = cur.fetchall()
+    print(args, raamatud)
+    return raamatud
 
+def OtsiRaamatud():
+    conn = pymysql.connect(host=dbServerName,
+                             user=dbUser,
+                             password=dbPassword,
+                             db=dbName)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM raamatukogu")
+    raamatud = cur.fetchall()
+    return raamatud
+    
 def LisaAndmebaasi(raamatud):
     log.info("Üritan lisada andmebaasi {0} kirjet".format(len(raamatud)))
     conn = pymysql.connect(host=dbServerName,
@@ -85,9 +117,8 @@ def LisaAndmebaasi(raamatud):
                              password=dbPassword,
                              db=dbName)
     cur = conn.cursor()
-    cur.execute("SELECT * FROM raamatukogu")
-    
-    print(cur.fetchall())
+    """  cur.execute("SELECT * FROM raamatukogu")    
+    print(cur.fetchall())"""
     try:
         with conn.cursor() as cursor:
             # Create a new record
@@ -97,17 +128,17 @@ def LisaAndmebaasi(raamatud):
             cursor.executemany(sql, raamatud) # rakenda muudatus
         conn.commit()
     except Exception as ex:
-        #conn.rollback()
+        conn.rollback()
         log.error("Ei õnnestunud lisamine: {0}:{1}".format( type(ex), ex)) # logi veateade
         print(ex) # ja prindi ka konsooli
     finally:
         conn.close() # sule yhendus
         
 def try_parse_int(s, base=10, val=None):
-  try:
-    return int(s, base)
-  except ValueError:
-    return val        
+    try:
+        return int(s, base)
+    except ValueError:
+        return val        
 
 def RaamatuStaatusKontroll(staatus):
     
@@ -117,7 +148,23 @@ def RaamatuStaatusKontroll(staatus):
         staatus = RaamatuStaatus['kohal'].value
     return staatus     
         
-        
+class MyPrompt(Cmd):
+    def do_quit(self, args):
+        """Sulgeb ui"""
+        print("Sulgen.")
+        raise SystemExit
+    
+    def do_otsi(self, *args):
+        """Otsib raamatukogust
+            *args (str): sisesta otsisõnad mida otsitakse andmebaasist. Kui tühi, siis terve raamatukogu
+        """
+        if len(args[0]) == 0:
+            for raamat in OtsiRaamatud():
+                print(json.dumps(raamat,default=json_serial))
+        else:
+            for raamat in OtsiAndmebaasist(args):
+                print(json.dumps(raamat,default=json_serial))
+            
 if __name__ == '__main__':
     raamatud = []
     
@@ -153,20 +200,12 @@ if __name__ == '__main__':
                 log.error("Vigane kirje failis {0} rida {1}\n".format(file,i))
     LooRaamatukogu()       
     LisaAndmebaasi(raamatud) # lisab saadud raamatud andmebaasi
-    print('q+CR väljumiseks, jne\n')
-    while True:
-        cmd = input()
-        log.info("Kasutaja sisestas {0}".format(cmd))
-        if cmd == 'q':
-            break
-        elif cmd == 'n':
-            print("Sisest uus raamat")
-        elif cmd == 'newD':
-            print("Sisest uus raamat")
-            LooRaamatukogu()
-        elif cmd == 'printD':
-            print("Sisest uus raamat")
-        elif cmd == 'n':
-            print("Sisest uus raamat")    
+    for item in OtsiRaamatud():
+        print(item)
+    prompt = MyPrompt() # CLI väärtustamine
+    prompt.prompt = '> ' # rea tähistus
+    prompt.intro = "Tere tulemast raamatukogu andmebaasi ..."
+    prompt.onecmd("help")
+    prompt.cmdloop() # käivitab CLI, millega kasutaja suhtleb  
     
     

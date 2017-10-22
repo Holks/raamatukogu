@@ -2578,3 +2578,348 @@
 
 [2017-10-21 22:22:03,760 RaamauteAndmebaas.py:54 -       LooRaamatukogu() ] Üritan luua raamatukogu
 [2017-10-21 22:22:03,765 RaamauteAndmebaas.py:82 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 43 kirjet
+[2017-10-22 11:08:52,608 RaamatuteAndmebaas.py:32 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 11:08:52,608 RaamatukoguServer.py:147 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 12:47:57,146 RaamatuteAndmebaas.py:32 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 12:47:57,166 RaamatuteAndmebaas.py:54 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 12:47:57,176 RaamatuteAndmebaas.py:98 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 12:48:53,774 RaamatuteAndmebaas.py:32 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 12:48:53,784 RaamatuteAndmebaas.py:54 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 12:48:53,789 RaamatuteAndmebaas.py:94 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 12:49:29,857 RaamatuteAndmebaas.py:32 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 12:49:29,867 RaamatuteAndmebaas.py:54 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 12:49:29,867 RaamatuteAndmebaas.py:94 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 12:50:15,699 RaamatuteAndmebaas.py:32 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 12:50:15,704 RaamatuteAndmebaas.py:54 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 12:50:15,709 RaamatuteAndmebaas.py:94 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 12:52:38,138 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 12:52:38,153 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 12:52:38,158 RaamatuteAndmebaas.py:95 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:12:03,887 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:12:03,897 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:12:03,902 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:14:48,089 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:14:48,104 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:14:48,104 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:15:11,209 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:15:11,219 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:15:11,219 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:15:52,246 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:15:52,251 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:15:52,256 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:15:55,825 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:15:55,840 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:15:55,840 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:16:27,967 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:16:27,972 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:16:27,977 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:19:14,786 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:19:14,796 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:19:14,801 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:19:38,803 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:19:38,813 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:19:38,813 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:19:54,203 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:19:54,208 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:19:54,213 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:20:12,666 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:20:12,686 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:20:12,686 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:20:42,606 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:20:42,616 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:20:42,616 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:22:11,701 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:22:11,716 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:22:11,716 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:24:09,711 RaamatuteAndmebaas.py:33 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:24:09,721 RaamatuteAndmebaas.py:55 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:24:09,726 RaamatuteAndmebaas.py:104 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:25:19,378 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:25:19,388 RaamatuteAndmebaas.py:56 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:25:19,393 RaamatuteAndmebaas.py:105 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:28:35,039 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:28:35,049 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:28:35,049 RaamatuteAndmebaas.py:113 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:29:48,653 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:29:48,663 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:29:48,668 RaamatuteAndmebaas.py:113 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:31:18,055 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:31:18,065 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:31:18,070 RaamatuteAndmebaas.py:113 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:32:12,779 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:32:12,784 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:32:12,789 RaamatuteAndmebaas.py:112 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:33:01,100 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:33:01,110 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:33:01,115 RaamatuteAndmebaas.py:112 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:33:41,537 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:33:41,542 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:33:41,547 RaamatuteAndmebaas.py:113 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:35:38,755 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:35:38,765 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:35:38,770 RaamatuteAndmebaas.py:113 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:35:54,660 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:35:54,670 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:35:54,675 RaamatuteAndmebaas.py:113 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:39:11,390 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:39:11,400 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:39:11,405 RaamatuteAndmebaas.py:113 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:43:03,390 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:43:03,400 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 13:43:03,405 RaamatuteAndmebaas.py:113 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2017-10-22 13:43:52,195 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:43:52,195 RaamatukoguServer.py:102 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 13:50:40,948 RaaamtukoguKlient.py:55 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus
+[2017-10-22 13:50:40,948 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 13:50:46,060 RaaamtukoguKlient.py:55 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus
+[2017-10-22 13:50:46,060 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 13:51:04,426 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:51:04,431 RaamatukoguServer.py:102 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 13:51:25,922 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:51:25,927 RaamatukoguServer.py:102 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 13:51:32,544 RaaamtukoguKlient.py:55 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus
+[2017-10-22 13:51:32,544 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 13:52:26,022 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:52:26,027 RaamatukoguServer.py:103 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 13:52:39,474 RaaamtukoguKlient.py:55 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus
+[2017-10-22 13:52:39,474 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 13:54:16,872 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:54:16,877 RaamatukoguServer.py:104 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 13:54:30,715 RaaamtukoguKlient.py:55 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus
+[2017-10-22 13:54:30,720 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 13:55:06,828 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:55:06,833 RaamatukoguServer.py:106 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 13:55:14,560 RaaamtukoguKlient.py:55 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus
+[2017-10-22 13:55:14,561 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 13:56:05,373 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:56:05,378 RaamatukoguServer.py:106 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 13:56:11,373 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 13:57:33,890 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 13:57:33,895 RaamatukoguServer.py:104 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 13:57:43,343 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:01:31,815 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:01:31,820 RaamatukoguServer.py:104 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:01:38,333 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:02:12,230 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:02:12,235 RaamatukoguServer.py:105 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:02:18,332 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:02:18,337 RaamatukoguServer.py:105 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:02:38,776 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:02:38,781 RaamatukoguServer.py:105 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:02:43,013 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:03:29,049 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:03:29,049 RaamatukoguServer.py:104 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:03:42,005 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:04:17,359 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:04:17,364 RaamatukoguServer.py:104 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:04:24,670 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:05:40,228 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:05:40,228 RaamatukoguServer.py:104 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:06:22,719 RaaamtukoguKlient.py:91 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:13:25,842 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:13:25,847 RaamatukoguServer.py:104 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:13:31,502 RaaamtukoguKlient.py:89 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:14:06,011 RaaamtukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:15:02,780 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:15:02,785 RaamatukoguServer.py:103 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:15:08,210 RaaamtukoguKlient.py:54 -               do_GET() ] GET: /api/v1/raamatud ebaõnnestus ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+[2017-10-22 14:15:08,210 RaaamtukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:15:12,906 RaaamtukoguKlient.py:54 -               do_GET() ] GET: /api/v1/raamatud ebaõnnestus ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+[2017-10-22 14:15:12,911 RaaamtukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:17:41,284 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:17:41,284 RaamatukoguServer.py:103 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:17:45,259 RaaamtukoguKlient.py:54 -               do_GET() ] GET: /api/v1/raamatud ebaõnnestus ('Connection aborted.', BadStatusLine('[[1, "Killing Floor", "L. Child", "0-593-04143-7", "1997", "1", 1, null], [2, "Die Trying", "L. Child", "0-593-04144-5", "1998", "3", 1, null], [3, "Tripwire", "L. Child", "0-593-04393-6", "1999", "5", 1, null], [4, "The Visitor", "L. Child", "0-593-04399-5", "2000", "7", 2, "2017-10-26"], [5, "Echo Burning", "L. Child", "0-593-04659-5", "2001", "9", 1, null], [6, "Without Fail", "L. Child", "0-593-04686-2", "2002", "11", 2, "2017-10-28"], [7, "Persuader", "L. Child", "0-593-04689-7", "2003", "13", 1, null], [8, "The Enemy", "L. Child", "0-593-05182-3", "2004", "15", 1, null], [9, "One Shot", "L. Child", "0-593-05183-1", "2005", "17", 1, null], [10, "The Hard Way", "L. Child", "978-0-593-05184-9", "2006", "19", 2, "2017-11-01"], [11, "Bad Luck and Trouble", "L. Child", "978-0-593-05701-8", "2007", "21", 1, null], [12, "Nothing To Lose", "L. Child", "978-0-593-05702-5", "2008", "23", 2, "2017-11-03"], [13, "Gone Tomorrow", "L. Child", "978-0-593-05705-6", "2009", "25", 1, null], [14, "61 Hours", "L. Child", "978-0-593-05706-3", "2010", "27", 1, null], [15, "Worth Dying For", "L. Child", "978-0-593-06566-2", "2010", "29", 1, null], [16, "The Affair", "L. Child", "978-0-593-06570-9", "2011", "31", 2, "2017-11-07"], [17, "A Wanted Man", "L. Child", "978-0-593-06573-0", "2012", "33", 1, null], [18, "Never Go Back", "L. Child", "978-0-593-06574-7", "2013", "35", 2, "2017-11-09"], [19, "Personal", "L. Child", "978-0-593-07382-7", "2014", "37", 1, null], [20, "Make Me", "L. Child", "978-0-593-07388-9", "2015", "39", 1, null], [21, "Night School", "L. Child", "978-0-593-07390-2", "2016", "41", 1, null], [22, "The Midnight Line", "L. Child", "978-0-593-07818-1", "2017", "43", 2, "2017-11-13"], [23, "The Deep Blue Good-by ", "John D. MacDonald ", "", "1964", "45", 1, null], [24, "Nightmare in Pink ", "John D. MacDonald ", "", "1964", "47", 2, "2017-11-15"], [25, "A Purple Place for Dying ", "John D. MacDonald ", "", "1964", "49", 1, null], [26, "The Quick Red Fox ", "John D. MacDonald ", "", "1964", "51", 1, null], [27, "A Deadly Shade of Gold ", "John D. MacDonald ", "", "1965", "53", 1, null], [28, "Bright Orange for the Shroud ", "John D. MacDonald ", "", "1965", "55", 2, "2017-11-19"], [29, "Darker than Amber ", "John D. MacDonald ", "", "1966", "57", 1, null], [30, "One Fearful Yellow Eye ", "John D. MacDonald ", "", "1966", "59", 2, "2017-11-21"], [31, "Pale Gray for Guilt ", "John D. MacDonald ", "", "1968", "61", 1, null], [32, "The Girl in the Plain Brown Wrapper ", "John D. MacDonald ", "", "1968", "63", 1, null], [33, "Dress Her in Indigo ", "John D. MacDonald ", "", "1969", "65", 1, null], [34, "The Long Lavender Look ", "John D. MacDonald ", "", "1970", "67", 2, "2017-11-25"], [35, "A Tan and Sandy Silence ", "John D. MacDonald ", "", "1971", "69", 1, null], [36, "The Scarlet Ruse ", "John D. MacDonald ", "", "1972", "71", 2, "2017-11-27"], [37, "The Turquoise Lament ", "John D. MacDonald ", "", "1973", "73", 1, null], [38, "The Dreadful Lemon Sky ", "John D. MacDonald ", "", "1974", "75", 1, null], [39, "The Empty Copper Sea ", "John D. MacDonald ", "", "1978", "77", 1, null], [40, "The Green Ripper ", "John D. MacDonald ", "", "1979", "79", 2, "2017-12-01"], [41, "Free Fall in Crimson ", "John D. MacDonald ", "", "1981", "81", 1, null], [42, "Cinnamon Skin ", "John D. MacDonald ", "", "1982", "83", 2, "2017-12-03"], [43, "The Lonely Silver Rain ", "John D. MacDonald ", "", "1984", "85", 1, null]]',))
+[2017-10-22 14:17:45,259 RaaamtukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:18:25,597 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:18:25,602 RaamatukoguServer.py:103 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:18:29,452 RaaamtukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:18:43,615 RaaamtukoguKlient.py:54 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+[2017-10-22 14:18:43,615 RaaamtukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:21:14,203 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:21:14,203 RaamatukoguServer.py:103 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:21:21,018 RaaamtukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:38:42,475 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:38:42,480 RaamatukoguServer.py:111 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:38:47,492 RaaamtukoguKlient.py:89 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:38:52,528 RaaamtukoguKlient.py:52 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus ('Connection aborted.', BadStatusLine('Content-Type: application/json\r\n',))
+[2017-10-22 14:38:52,528 RaaamtukoguKlient.py:89 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:39:36,939 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:39:36,944 RaamatukoguServer.py:112 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:39:47,214 RaaamtukoguKlient.py:52 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus ('Connection aborted.', BadStatusLine('Content-Type: application/json\r\n',))
+[2017-10-22 14:39:47,214 RaaamtukoguKlient.py:89 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:41:33,958 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:41:33,958 RaamatukoguServer.py:112 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:41:40,443 RaamatukoguKlient.py:89 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:41:49,794 RaamatukoguKlient.py:52 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus ('Connection aborted.', BadStatusLine('Content-Type: application/json\r\n',))
+[2017-10-22 14:41:49,794 RaamatukoguKlient.py:89 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:43:11,256 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:43:11,261 RaamatukoguServer.py:113 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:43:18,482 RaamatukoguKlient.py:52 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus ('Connection aborted.', BadStatusLine('Content-Type: application/json\r\n',))
+[2017-10-22 14:43:18,482 RaamatukoguKlient.py:89 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:45:24,881 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:45:24,886 RaamatukoguServer.py:113 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:45:52,151 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:45:52,151 RaamatukoguServer.py:113 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:45:58,696 RaamatukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:46:03,485 RaamatukoguKlient.py:52 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus ('Connection aborted.', BadStatusLine('Content-Type: application/json\r\n',))
+[2017-10-22 14:46:03,485 RaamatukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:47:52,646 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:47:52,646 RaamatukoguServer.py:113 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:47:59,076 RaamatukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:48:03,245 RaamatukoguKlient.py:52 -               do_GET() ] GET: /api/v1/otsi ebaõnnestus ('Connection aborted.', BadStatusLine('Content-Type: application/json\r\n',))
+[2017-10-22 14:48:03,245 RaamatukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:49:24,153 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:49:24,153 RaamatukoguServer.py:112 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-10-22 14:49:32,568 RaamatukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:49:36,832 RaamatukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:49:51,801 RaamatukoguKlient.py:90 -              do_otsi() ] Lisan raamatu
+[2017-10-22 14:51:17,818 RaamatuteAndmebaas.py:35 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-10-22 14:51:17,828 RaamatuteAndmebaas.py:64 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2017-10-22 14:51:17,828 RaamatuteAndmebaas.py:114 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet

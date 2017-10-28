@@ -16,7 +16,6 @@ import pymysql
 import sys
 import logging # vigade logimiseks ja muudeks
 from enum import Enum # staatuse klass,
-from dateutil.parser import parse 
 from cmd import Cmd
 import json
 from datetime import date, datetime
@@ -62,7 +61,7 @@ def LooRaamatukogu():
     try:
         with conn.cursor() as cursor:
             log.info("Üritan luua raamatukogu") # loon raamatukogu
-            sql = "CREATE TABLE IF NOT EXISTS Raamatukogu "
+            sql = "CREATE TABLE IF NOT EXISTS raamatukogu "
             sql += "(`id` int(20) NOT NULL AUTO_INCREMENT,"
             sql += "`title` varchar(255) COLLATE utf8_bin NOT NULL,"
             sql += "`author` varchar(255) COLLATE utf8_bin NOT NULL,"
@@ -71,7 +70,7 @@ def LooRaamatukogu():
             sql += "`inventory_no` varchar(255) COLLATE utf8_bin,"
             sql += "`status` int(1) NOT NULL,"
             sql += "`return_datum` varchar(255),"
-            sql += "PRIMARY KEY (`id`)) AUTO_INCREMENT=1;"
+            sql += "PRIMARY KEY (`id`),FULLTEXT idx (title, author, isbn)) AUTO_INCREMENT=1;"
             
             cursor.execute(sql)    
         conn.commit()
@@ -82,50 +81,22 @@ def LooRaamatukogu():
     finally:
         conn.close()
 
-def LisaRaamat(raamatud):
+def LisaRaamat(raamat):
     '''
     -- Lisab ühe raamatu andmebaasi
     '''
-    pass 
-def OtsiAndmebaasist(*args):
+    log.info("Üritan lisada andmebaasi kirjet {0}".format(raamat))
     conn = pymysql.connect(host=dbServerName,
                              user=dbUser,
                              password=dbPassword,
                              db=dbName)
-    cur = conn.cursor()
-    sql = """SELECT * FROM raamatukogu WHERE MATCH (title,author,isbn) AGAINST (%s IN NATURAL LANGUAGE MODE);"""
-    
-    cur.execute(sql, args)
-    raamatud = cur.fetchall()
-    print(args, raamatud)
-    return raamatud
-
-def OtsiRaamatud():
-    conn = pymysql.connect(host=dbServerName,
-                             user=dbUser,
-                             password=dbPassword,
-                             db=dbName)
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM raamatukogu")
-    raamatud = cur.fetchall()
-    return raamatud
-    
-def LisaAndmebaasi(raamatud):
-    log.info("Üritan lisada andmebaasi {0} kirjet".format(len(raamatud)))
-    conn = pymysql.connect(host=dbServerName,
-                             user=dbUser,
-                             password=dbPassword,
-                             db=dbName)
-    cur = conn.cursor()
-    """  cur.execute("SELECT * FROM raamatukogu")    
-    print(cur.fetchall())"""
     try:
         with conn.cursor() as cursor:
             # Create a new record
             # (title, author, isbn, published, inventory_no, status, return_datum) 
             sql = """INSERT IGNORE INTO `raamatukogu` VALUES ('',%s, %s, %s, %s, %s, %s, %s);"""
             
-            cursor.executemany(sql, raamatud) # rakenda muudatus
+            cursor.execute(sql, raamat) # rakenda muudatus
         conn.commit()
     except Exception as ex:
         conn.rollback()
@@ -133,7 +104,161 @@ def LisaAndmebaasi(raamatud):
         print(ex) # ja prindi ka konsooli
     finally:
         conn.close() # sule yhendus
-        
+
+def KustutaRaamat(raamat):
+    '''
+    -- Kustutab ühe raamatu andmebaasi
+    '''
+    try:
+        conn = pymysql.connect(host=dbServerName,
+                                 user=dbUser,
+                                 password=dbPassword,
+                                 db=dbName)
+        cur = conn.cursor()
+        sql = "DELETE FROM raamatukogu WHERE id = %s" % (raamat,)
+        print(sql)
+        cur.execute(sql)
+        conn.commit()
+        return False
+    except Exception as ex:
+        return ex    
+
+def OtsiAndmebaasist(*args):
+    conn = pymysql.connect(host=dbServerName,
+                             user=dbUser,
+                             password=dbPassword,
+                             db=dbName)
+    cur = conn.cursor()
+    sql = """SELECT * FROM raamatukogu WHERE MATCH (title,author,isbn) AGAINST (%s IN NATURAL LANGUAGE MODE);"""    
+    cur.execute(sql, (args,))
+    raamatud = cur.fetchall()
+    print(raamatud)
+    nimekiri = []
+    for raamat in raamatud:        
+        nimekiri.append({
+        'id':raamat[0],
+        'pealkiri':raamat[1],
+        'autor':raamat[2],    
+        'isbn':raamat[3],
+        'aasta':raamat[4],
+        'kohaviit':raamat[5],
+        'staatus':raamat[6],
+        'daatum':raamat[7]
+         })
+    return nimekiri
+
+def OtsiRaamatud():
+    print("otsi raamatud")
+    conn = pymysql.connect(host=dbServerName,
+                             user=dbUser,
+                             password=dbPassword,
+                             db=dbName)
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM raamatukogu')
+    raamatud = cur.fetchall()
+    nimekiri = []
+    for raamat in raamatud:        
+        nimekiri.append({
+        'id':raamat[0],
+        'pealkiri':raamat[1],
+        'autor':raamat[2],    
+        'isbn':raamat[3],
+        'aasta':raamat[4],
+        'kohaviit':raamat[5],
+        'staatus':raamat[6],
+        'daatum':raamat[7]
+         })
+    return nimekiri
+
+def KuvaRaamat(raamatID):
+    conn = pymysql.connect(host=dbServerName,
+                             user=dbUser,
+                             password=dbPassword,
+                             db=dbName)
+    try:
+        with conn.cursor() as cur:    
+            cur.execute("SELECT * FROM raamatukogu WHERE id=%s", (raamatID))
+            raamat = cur.fetchone()
+    except Exception as ex:
+        log.error("Ei õnnestunud kuvamine: {0}:{1}".format( type(ex), ex)) # logi veateade
+        print(ex) # ja prindi ka konsooli    
+    finally:
+        conn.close() # sule yhendus
+        raamat = {
+        'id':raamat[0],
+        'pealkiri':raamat[1],
+        'autor':raamat[2],    
+        'isbn':raamat[3],
+        'aasta':raamat[4],
+        'kohaviit':raamat[5],
+        'staatus':raamat[6],
+        'daatum':raamat[7]
+         }
+        return raamat
+    return ex
+
+def UuendaRaamat(raamatID, daatum):
+    conn = pymysql.connect(host=dbServerName,
+                             user=dbUser,
+                             password=dbPassword,
+                             db=dbName)
+    try:
+        try:
+            print(daatum)
+            if daatum != "":
+                print("laenutamine")
+                kuup2ev = daatum.strip().split('.')
+                kuup2ev = '{0}-{1}-{2}'.format(kuup2ev[2],kuup2ev[1],kuup2ev[0]) 
+                staatus = 2
+            else:
+                kuup2ev = "0000-00-00" # kuupäeva None vorming andmebaasis
+                print("tagastamine")
+                staatus = 1
+        except Exception as ex:
+            log.error("Kuupäev vales vormingus: {0} - {1}:{2}".format(daatum, type(ex), ex)) # logi veateade
+            return
+        with conn.cursor() as cur: 
+            sql = 'UPDATE raamatukogu SET return_datum = %s, status = %s WHERE id = %s'
+            cur.execute(sql,(kuup2ev, staatus, raamatID))
+            conn.commit()
+    except Exception as ex:
+        conn.rollback()
+        conn.close()
+        log.error("Ei õnnestunud lisamine: {0}:{1}".format( type(ex), ex)) # logi veateade
+        return None
+    finally:
+        raamat = KuvaRaamat(raamatID) # esita tulemus kasutajale
+        conn.close() # sule yhendus
+        return raamat
+    
+def LisaAndmebaasi(raamatud):    
+    log.info("Üritan lisada andmebaasi {0} kirjet".format(len(raamatud)))
+    conn = pymysql.connect(host=dbServerName,
+                             user=dbUser,
+                             password=dbPassword,
+                             db=dbName)
+    try:
+        with conn.cursor() as cursor:
+            sql = """INSERT IGNORE INTO raamatukogu VALUES ('',%s, %s, %s, %s, %s, %s, %s);"""
+            nres = cursor.executemany(sql, raamatud) # rakenda muudatus          
+            print(nres)                       
+        conn.commit()
+    except pymysql.Warning as e:
+        log.error("Andmebaasi sisestuse hoiatus: {0}".format( e)) # logi veateade
+    except pymysql.MySQLError as e:
+        log.error("Ei õnnestunud lisamine: {0}:{1}".format( type(e), e)) # logi veateade    
+    except Exception as ex:
+        conn.rollback()
+        conn.close() 
+        log.error("Ei õnnestunud lisamine: {0}:{1}".format( type(ex), ex)) # logi veateade
+        return True
+    finally:
+        conn.close() # sule yhendus
+        if nres == 0: 
+            return False
+        else:
+            return nres
+    
 def try_parse_int(s, base=10, val=None):
     try:
         return int(s, base)
@@ -147,11 +272,14 @@ def RaamatuStaatusKontroll(staatus):
     else:
         staatus = RaamatuStaatus['kohal'].value
     return staatus     
-        
+
 class MyPrompt(Cmd):
-    def do_quit(self, args):
+    """
+    Andmebaasiga suhtlemiseks käsurealt
+    """
+    def do_quit(self):
         """Sulgeb ui"""
-        print("Sulgen.")
+        print("Täname\nKülastage meid jälle")
         raise SystemExit
     
     def do_otsi(self, *args):
@@ -173,7 +301,6 @@ if __name__ == '__main__':
         for i,rida in enumerate(open(file)): # käin läbi terve faili rea kaupa
             try:
                 rida = rida.split(',') # NB! probleemiks komaga andmeväljad, nt pealkirja vms  
-                        
                 pealkiri = rida[0]
                 aasta = rida[1]
                 isbn = rida[2]

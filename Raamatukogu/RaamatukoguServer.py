@@ -15,7 +15,6 @@ from socketserver import ThreadingMixIn
 import threading
 import argparse # kasutajasõbralikum käsurea käskude parser
 import re
-import cgi # 
 import logging # vigade logimiseks ja muudeks
 import RaamatuteAndmebaas as rmtk# andmebaasiga suhtluse moodul
 import json
@@ -24,28 +23,63 @@ import json
 FORMAT = "[%(asctime)-15s %(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
 log = logging.getLogger("RaamatukoguServer") # handle andmebaasi logile
 logging.basicConfig(filename="raamatukogu.log", level=logging.INFO, format=FORMAT) # kasutuse logi
-    
+
     
 class LocalData(object):
     records = {}
  
 class HTTPRequestHandler(BaseHTTPRequestHandler):
+    def _set_headers(self):
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        #self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        
     """
-    --Funktsioon raamatukogu kirje lisamiseks
+    --Funktsioon raamatukogu kirje(te) lisamiseks
     
     """
     def do_POST(self):
-        
+        #print(self.path)
+        if re.search('/api/v1/lisa', self.path):
+            try:
+                self._set_headers()
+                lisatavad = json.loads(self.rfile.read(int(self.headers['Content-Length'])).decode())
+                raamatud = []
+                for jsonItem in lisatavad:
+                    raamat = (
+                        jsonItem['pealkiri'],
+                        jsonItem['autor'], 
+                        jsonItem['isbn'], 
+                        jsonItem['aasta'], 
+                        jsonItem['kohaviit'], 
+                        jsonItem['staatus'], 
+                        jsonItem['daatum'])
+                    #print(raamat)
+                    raamatud.append(raamat) # lisa raamat dict loetellu
+                #print(raamatud)
+                res = rmtk.LisaAndmebaasi(raamatud)
+                if res != len(lisatavad) : # funktsioon tagastas vea?                    
+                    self.send_response(403) 
+                    self.end_headers()
+                else:
+                    self.send_response(200)
+                    self.end_headers()
+                    
+            except:
+                self.send_response(403, 'Server pole saadaval')                
+        else:
+            self.send_response(403)
         return
     """
     --Funktsioon raamatukogu kirje saamiseks, otsimiseks
     
     """
     def do_GET(self):
-        #if None != re.search('/api/v1/raamatud', self.path):
+        #print(self.path)
         if re.search('/api/v1/raamatud', self.path):
             try:
-                res = json.dumps(rmtk.OtsiRaamatud(),default=rmtk.json_serial)
+                res = json.dumps(rmtk.OtsiRaamatud(), default=rmtk.json_serial, sort_keys=True)
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/json')
                 self.end_headers()
@@ -56,31 +90,68 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         elif re.search('/api/v1/otsi/*', self.path):
             try:
                 keywords = self.path.split('=')[-1] # ürita poolitada = juurest
+                print(keywords)
+                res = json.dumps(rmtk.OtsiAndmebaasist(keywords), default=rmtk.json_serial, sort_keys=True)
                 self.send_response(200)
-                res = json.dumps(rmtk.OtsiAndmebaasist(keywords), default=rmtk.json_serial)
                 self.send_header('Content-Type', 'application/json')
                 self.end_headers()
                 self.wfile.write(bytes(res, "utf-8"))    
             except:
                 self.send_response(403, 'Server pole saadaval')
-            
+        elif re.search('/api/v1/raamat', self.path):
+            try:
+                raamatID = self.path.split('?')[-1] # ürita poolitada = juurest
+                res = json.dumps(rmtk.KuvaRaamat(raamatID), default=rmtk.json_serial, sort_keys=True)
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(bytes(res, "utf-8"))    
+            except:
+                self.send_response(403, 'Server pole saadaval')    
         else:
             self.send_response(403)
         return
     """
-    --Funktsioon raamatukogusse kirje lisamiseks
+    --Funktsioon raamatukogusse kirje uuendamiseks
     
     """
     def do_PUT(self):
-        
+        print(self.path)
+        if re.search('/api/v1/uuenda', self.path):
+            try:
+                raamat = self.path.split('/')[-1]                
+                res = self.rfile.read(int(self.headers['Content-Length'])).decode().split('=')[-1]
+                print(res)
+                response = rmtk.UuendaRaamat(raamat, res) 
+                print(response)
+                if response is None:
+                    self.send_response(500)                
+                else:
+                    self.send_response(200)  
+                self.send_header('Content-type', 'text/html')                
+                self.end_headers()
+            except:
+                self.send_response(403, 'Server pole saadaval')
+        else:
+            self.send_response(403)
         return
     """
     --Funktsioon raamatukogust kirje kustutamiseks
     
     """
     def do_DELETE(self):
-        
+        if re.search('/api/v1/eemalda/*', self.path):
+            raamat = self.path.split('/')[-1] # ürita poolitada = juurest
+            if rmtk.KustutaRaamat(raamat) == False:                
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+            else:
+                self.send_response(403)
+        else:
+            self.send_response(403)
         return
+    
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     allow_reuse_address = True
  

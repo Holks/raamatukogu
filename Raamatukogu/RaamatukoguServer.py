@@ -40,13 +40,15 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
     
     """
     def do_POST(self):
-        #print(self.path)
+        print(self.path)
         if re.search('/api/v1/lisa', self.path):
             try:
                 self._set_headers()
                 lisatavad = json.loads(self.rfile.read(int(self.headers['Content-Length'])).decode())
+                print(lisatavad)
                 raamatud = []
                 for jsonItem in lisatavad:
+                    print(jsonItem)
                     raamat = (
                         jsonItem['pealkiri'],
                         jsonItem['autor'], 
@@ -55,9 +57,9 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                         jsonItem['kohaviit'], 
                         jsonItem['staatus'], 
                         jsonItem['daatum'])
-                    #print(raamat)
+                    print(raamat)
                     raamatud.append(raamat) # lisa raamat dict loetellu
-                #print(raamatud)
+                print(raamatud)
                 res = rmtk.LisaAndmebaasi(raamatud)
                 if res != len(lisatavad) : # funktsioon tagastas vea?                    
                     self.send_response(403) 
@@ -171,8 +173,8 @@ class SimpleHttpServer():
     def waitForThread(self):
         self.server_thread.join()
  
-    def addRecord(self, recordID, jsonEncodedRecord):
-        LocalData.records[recordID] = jsonEncodedRecord
+  #  def addRecord(self, recordID, jsonEncodedRecord):
+    #    LocalData.records[recordID] = jsonEncodedRecord
  
     def stop(self):
         self.server.shutdown()

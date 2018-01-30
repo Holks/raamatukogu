@@ -36,7 +36,7 @@ log.info("\n\tKäivitati skript ...\n")
 dbServerName    = "127.0.0.1" # localhost
 dbUser          = "kitsemampsel"
 dbPassword      = "e6FkVoF4d3PGiEG7"
-dbName          = "raamatukogu"
+dbName          = "eclipse"
 charSet         = "utf8mb4"
 cusrorType      = pymysql.cursors.DictCursor 
 

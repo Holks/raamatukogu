@@ -2330,3 +2330,132 @@
 [2017-10-28 23:23:32,823 RaamatukoguKlient.py:62 -               do_GET() ] GET: /api/v1/raamatud õnnestus
 [2017-10-28 23:23:37,741 RaamatukoguKlient.py:62 -               do_GET() ] GET: /api/v1/raamat õnnestus
 [2017-10-28 23:23:37,742 RaamatukoguKlient.py:259 -           do_tagasta() ] Uuendan andmebaasi kirjet: TAGASTUS 43
+[2017-12-20 08:41:28,156 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:41:28,156 RaamatukoguServer.py:187 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-12-20 08:41:38,696 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:41:43,636 RaamatukoguKlient.py:296 -              do_otsi() ] Otsin raamatut 
+[2017-12-20 08:41:44,677 RaamatukoguKlient.py:64 -               do_GET() ] GET: /api/v1/raamatud ebaõnnestus ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+[2017-12-20 08:43:00,638 RaamatukoguKlient.py:296 -              do_otsi() ] Otsin raamatut 
+[2017-12-20 08:43:00,679 RaamatukoguKlient.py:61 -               do_GET() ] GET: /api/v1/raamatud õnnestus
+[2017-12-20 08:43:44,037 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:43:44,047 RaamatukoguServer.py:187 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-12-20 08:43:48,648 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:43:53,388 RaamatukoguKlient.py:296 -              do_otsi() ] Otsin raamatut 
+[2017-12-20 08:43:53,438 RaamatukoguKlient.py:61 -               do_GET() ] GET: /api/v1/raamatud õnnestus
+[2017-12-20 08:45:10,242 RaamatukoguKlient.py:197 -              do_lisa() ] Lisan raamatu
+[2017-12-20 08:48:28,966 RaamatukoguKlient.py:45 -              do_POST() ] POST: /api/v1/lisa õnnestus
+[2017-12-20 08:48:28,966 RaamatukoguKlient.py:48 -              do_POST() ] POST: lisatud data='{"aasta": "2010", "staatus": "1", "autor": "Mina", "kohaviit": "ferf262", "pealkiri": "wdewc", "isbn": "wfwf", "daatum": "12.12.2018"}', params=''
+[2017-12-20 08:48:28,966 RaamatukoguKlient.py:197 -              do_lisa() ] Lisan raamatu
+[2017-12-20 08:48:32,447 RaamatukoguKlient.py:296 -              do_otsi() ] Otsin raamatut 
+[2017-12-20 08:48:32,478 RaamatukoguKlient.py:61 -               do_GET() ] GET: /api/v1/raamatud õnnestus
+[2017-12-20 08:50:04,957 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:50:04,957 RaamatukoguServer.py:187 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-12-20 08:50:06,207 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:50:32,405 RaamatukoguKlient.py:45 -              do_POST() ] POST: /api/v1/lisa õnnestus
+[2017-12-20 08:50:32,405 RaamatukoguKlient.py:48 -              do_POST() ] POST: lisatud data='{"aasta": "2000", "daatum": "12-12-2015", "isbn": "dkdkdk", "kohaviit": "ddkdkw", "autor": "mina", "pealkiri": "dkdk", "staatus": "1"}', params=''
+[2017-12-20 08:50:32,405 RaamatukoguKlient.py:197 -              do_lisa() ] Lisan raamatu
+[2017-12-20 08:50:36,426 RaamatukoguKlient.py:296 -              do_otsi() ] Otsin raamatut 
+[2017-12-20 08:50:36,457 RaamatukoguKlient.py:61 -               do_GET() ] GET: /api/v1/raamatud õnnestus
+[2017-12-20 08:53:51,301 RaamatukoguKlient.py:45 -              do_POST() ] POST: /api/v1/lisa õnnestus
+[2017-12-20 08:53:51,301 RaamatukoguKlient.py:48 -              do_POST() ] POST: lisatud data='{"aasta": "2010", "daatum": "2015-12-2", "isbn": "1215yt", "kohaviit": "11y2", "autor": "mina", "pealkiri": "tg4g0", "staatus": "1"}', params=''
+[2017-12-20 08:53:51,301 RaamatukoguKlient.py:197 -              do_lisa() ] Lisan raamatu
+[2017-12-20 08:53:54,572 RaamatukoguKlient.py:296 -              do_otsi() ] Otsin raamatut 
+[2017-12-20 08:53:54,602 RaamatukoguKlient.py:61 -               do_GET() ] GET: /api/v1/raamatud õnnestus
+[2017-12-20 08:57:11,051 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:57:11,061 RaamatukoguServer.py:187 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-12-20 08:57:36,889 RaamatukoguKlient.py:45 -              do_POST() ] POST: /api/v1/lisa õnnestus
+[2017-12-20 08:57:36,889 RaamatukoguKlient.py:48 -              do_POST() ] POST: lisatud data='{"aasta": "2011", "daatum": "12.12.2018", "isbn": "121t2rj", "kohaviit": "12tj12tyj", "autor": "juyj", "pealkiri": "ytjhty12", "staatus": "1"}', params=''
+[2017-12-20 08:57:36,889 RaamatukoguKlient.py:197 -              do_lisa() ] Lisan raamatu
+[2017-12-20 08:58:21,551 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:58:21,551 RaamatukoguServer.py:187 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-12-20 08:58:44,369 RaamatukoguKlient.py:45 -              do_POST() ] POST: /api/v1/lisa õnnestus
+[2017-12-20 08:58:44,369 RaamatukoguKlient.py:48 -              do_POST() ] POST: lisatud data='{"aasta": "2011", "daatum": "12.12.2018", "isbn": "lfer,l", "kohaviit": "flfws", "autor": "ewfwerlf", "pealkiri": "dwel,", "staatus": "1"}', params=''
+[2017-12-20 08:58:44,369 RaamatukoguKlient.py:197 -              do_lisa() ] Lisan raamatu
+[2017-12-20 08:59:22,974 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:59:22,974 RaamatukoguServer.py:188 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-12-20 08:59:31,196 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:59:31,206 RaamatukoguServer.py:188 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-12-20 08:59:32,826 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 08:59:47,583 RaamatukoguKlient.py:45 -              do_POST() ] POST: /api/v1/lisa õnnestus
+[2017-12-20 08:59:47,583 RaamatukoguKlient.py:48 -              do_POST() ] POST: lisatud data='{"kohaviit": "l,fel,gel", "autor": "sdl,adfl", "staatus": "1", "aasta": "2011", "pealkiri": "lf,er", "daatum": "12.12.2019", "isbn": "elf,erg"}', params=''
+[2017-12-20 08:59:47,583 RaamatukoguKlient.py:197 -              do_lisa() ] Lisan raamatu
+[2017-12-20 09:00:36,475 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2017-12-20 09:00:36,475 RaamatukoguServer.py:189 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2017-12-20 09:00:53,692 RaamatukoguKlient.py:45 -              do_POST() ] POST: /api/v1/lisa õnnestus
+[2017-12-20 09:00:53,692 RaamatukoguKlient.py:48 -              do_POST() ] POST: lisatud data='{"kohaviit": "fler,gler,g", "autor": "sd\u00f6,asfd,", "staatus": "1", "aasta": "2011", "pealkiri": "f\u00f6er,fl\u00f6", "daatum": "12.12.2018", "isbn": "wf,rle,fge"}', params=''
+[2017-12-20 09:00:53,692 RaamatukoguKlient.py:197 -              do_lisa() ] Lisan raamatu
+[2018-01-06 16:54:31,976 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-06 16:54:31,986 RaamatukoguServer.py:189 -             <module>() ] Käivitan serveri -ip localhost -port 8080
+
+[2018-01-14 19:51:33,234 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-14 19:51:33,254 RaamatuteAndmebaas.py:63 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2018-01-14 19:51:33,264 RaamatuteAndmebaas.py:235 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2018-01-21 12:02:13,051 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-21 12:10:22,201 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-21 12:10:53,276 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-21 12:19:06,286 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-21 12:20:42,149 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-21 12:20:52,133 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-21 12:42:23,061 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-21 12:42:23,076 RaamatuteAndmebaas.py:63 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2018-01-21 12:42:23,154 RaamatuteAndmebaas.py:235 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2018-01-21 15:51:58,023 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-21 15:51:58,038 RaamatuteAndmebaas.py:63 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2018-01-21 15:51:58,038 RaamatuteAndmebaas.py:235 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet
+[2018-01-21 15:52:01,783 RaamatuteAndmebaas.py:34 -             <module>() ] 
+	Käivitati skript ...
+
+[2018-01-21 15:52:01,799 RaamatuteAndmebaas.py:63 -       LooRaamatukogu() ] Üritan luua raamatukogu
+[2018-01-21 15:52:01,799 RaamatuteAndmebaas.py:235 -       LisaAndmebaasi() ] Üritan lisada andmebaasi 0 kirjet

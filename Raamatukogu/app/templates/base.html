@@ -1,21 +1,190 @@
 <!DOCTYPE html>
 <html>
-    <head>Raamtatukogu</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <head>
+    <!-- Latest compiled and minified CSS -->
+    <title>Library</title>
+   		
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    	
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    	<style>
+				#dragndrop_area{
+				    border: 1px dashed #CCC;
+				    width:400px;
+				    font-family:Verdana;
+				}
+				#fileList{
+				   height:50px;
+				   line-height: 15px;
+				}
+				</style>
+    
     </head>
     <body>
+    		<div class="jumbotron text-center">
+    		<h1>RAAMATUKOGU</h1>
+    		</div>
         <div>
             Quick links:
 	        
 	        <a href="#" target="_blank">Link 1</a>
 	        <a href="#" target="_blank">Link 2</a>
+					{% with messages = get_flashed_messages() %}
+						{% if messages %}
+							<ul>
+								{% for message in messages %}
+									<li>{{ message }}</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+					{% endwith %}						
         </div>
-        <hr align="left" width="660">
+        <hr align="left">
+
+
+
+				<form action="/add" method="get" id="add_books" name="add">
+					<h2>Add Book</h2>	
+					<table class="table">
+					
+					<tr>
+						<td>
+							<b>Author:</b>
+						</td>
+						<td>
+							<input type="text" name="author" id="author" size="100"/>
+						</td>
+						</tr>
+					<tr>
+					<td>
+							<b>Title:</b>
+						</td>
+						<td>
+							<input type="text" name="title" id="title" size="100"/>
+						</td>
+						</tr>
+					<tr>
+					<td>
+							<b>ISBN:</b>
+						</td>
+						<td>
+							<input type="text" name="isbn" id="isbn" maxlength="13" size="13"/>
+						</td>
+						</tr>
+					<tr>
+					<td>
+							<b>Publish date:</b>
+						</td>	
+						<td>
+							<input type="text" name="publish_date" id="publish_date" maxlength="4" size="4"/>
+						</td>				
+					</tr>
+					
+				</table>
+					<table border="0" id="dragndrop_area">
+					<tr>
+						<input type="file" class="form-control-file" id="choose_file" multiple>
+					</tr>								
+					<tr valign="bottom" halign="left">							
+							<td>Drop files here</td>
+					</tr>					
+					<tr>
+				    <td><ul id="fileList"></ul></td>
+				  </tr>
+				</table>
+				  <button type="button" name="submit" id="submit" class="btn btn-primary btn-lg btn-block">Add book(s)</button>
+				</form>         
+        <hr align="left">
         {% block content %}{% endblock %}
+        
     </body>
 </html>
 {% block scripts %}
     <script>
+    var files = []; /* one upload of files */
+    var books = [];
+    var json_obj = {};
+    
+    $(document).ready(function(){
+        $('#submit').click(function(){ 
+        	var reader = new FileReader();
+        	for(var i=0; i<files.length; i++){
+        		//console.log(files[i].name);  
+						reader.onloadend = function( event ) {
+							var lines = this.result.split('\n');
+							for(var line = 0; line < lines.length; line++){
+					      //console.log(lines[line]);
+					      values = lines[line].split(/[,;]/)
+					      //console.log(lines[line]);
+					      if(values.length >= 4){				
+					      	var book = {author:values[3], title:values[0],isbn:values[2],publish_date:values[1]}
+						      //console.log(book);
+					      	books.push(book);
+					      };
+					    }
+						};
+        		reader.readAsText(files[i]);
+          };
+          for(var j=0; j<books.length;j++){
+        	  json_obj[j]=books[j];
+          };
+        	var books_to_add_json = JSON.stringify(books);          
+        	console.log(books_to_add_json);
+        	var xhr = new XMLHttpRequest();
+       	  xhr.open('POST', 'add', true);
+       	  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+       	  xhr.send(books_to_add_json);
+
+       	  xhr.onloadend = function () {
+       	    // done
+       	  };
+       	 location.reload(); 
+        });
+    });
+    $(document).ready(function(){
+        $('#choose_file').change(function(e){
+					var fileInput = document.getElementById('choose_file');
+					$.each( fileInput.files, function(i, file) {
+						if ( /\.(txt|csv)$/i.test(file.name)){ /* only .txt and .csv files allowed */
+							$('#fileList').prepend( $("<li>").append( file.name ));
+							files.push(file);
+						};
+  	 			});
+        });
+    });
+    $(document).ready(function(){
+   		  $('#choose_file').value = null;   		  
+    });
+    $(document).ready(function(){
+        $('#dragndrop_area').on({
+            'dragover dragenter': function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            },
+            'drop': function(e) {
+                var dataTransfer =  e.originalEvent.dataTransfer;
+                if( dataTransfer && dataTransfer.files.length) {
+                    e.preventDefault();
+                    e.stopPropagation();                    
+                    $.each( dataTransfer.files, function(i, file) { 
+                    	if ( /\.(txt|csv)$/i.test(file.name) ) {
+                    		files.push(file);
+                    		$('#fileList').prepend( $("<li>").append( file.name ));
+                    		/*
+	                      var reader = new FileReader();
+	                      reader.onload = $.proxy(function(file, $fileList, event) {
+	                        $fileList.prepend( $("<li>").append( file.name ) );
+	                      }, this, file, $("#fileList"));
+	                      
+	                      reader.readAsDataURL(file);*/
+                    	}
+                    });
+                }
+            }
+        });
+    });
     
     </script>
 {% endblock %}

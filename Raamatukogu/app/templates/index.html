@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-	<table class="table">
+	<table class="table" id="library_books">
 		<tr>
 				<td>
 					Database id
@@ -31,13 +31,10 @@
 					LOCATION
 				</td>
 				<td>		 
-					LEND
-				</td>	
-				<td>		 
-					DELETE
+					LEND DELETE
 				</td>	
 			</tr>
-		{% for book in books %}
+		<!-- {% for book in books %}
 			<tr>
 				<td>
 					{{ book.id }}
@@ -77,12 +74,12 @@
 				<td >		
 					<div class="btn-group-toggle" data-toggle="buttons">
 					  <label class="btn btn-secondary active">
-					    <input id=id="change_{{ book.id }}"  type="checkbox" checked autocomplete="off"> Checked
+					    <input id="change_{{ book.id }}"  type="checkbox" checked autocomplete="off"> Checked
 					  </label>
 					</div>	
 				</td>	
 			</tr>
-		{% endfor %}
+		{% endfor %} --> 
 	</table>
 </div>
 

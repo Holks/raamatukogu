@@ -95,6 +95,9 @@
 				  </tr>
 				</table>
 				  <button type="button" name="submit" id="submit" class="btn btn-primary btn-lg btn-block">Add book(s)</button>
+                  <button type="button" name="lend" id="lend_books" class="btn btn-primary btn-lg btn-block">Lend book(s)</button></b>
+                  <button type="button" name="return" id="return_books" class="btn btn-primary btn-lg btn-block">Return book(s)</button></b>
+                  <button type="button" name="delete" id="delete_books" class="btn btn-primary btn-lg btn-block">Delete book(s)</button></b>
 				</form>         
         <hr align="left">
         {% block content %}{% endblock %}
@@ -105,58 +108,228 @@
     <script>
     var files = []; /* one upload of files */
     var books = [];
-    var json_obj = {};
-    
+    var status_enum = {};
     $(document).ready(function(){
         $('#submit').click(function(){ 
-        	var reader = new FileReader();
-        	for(var i=0; i<files.length; i++){
-        		//console.log(files[i].name);  
-						reader.onloadend = function( event ) {
-							var lines = this.result.split('\n');
-							for(var line = 0; line < lines.length; line++){
-					      //console.log(lines[line]);
-					      values = lines[line].split(/[,;]/)
-					      //console.log(lines[line]);
-					      if(values.length >= 4){				
-					      	var book = {author:values[3], title:values[0],isbn:values[2],publish_date:values[1]}
-						      //console.log(book);
-					      	books.push(book);
-					      };
-					    }
-						};
-        		reader.readAsText(files[i]);
-          };
-          for(var j=0; j<books.length;j++){
-        	  json_obj[j]=books[j];
-          };
-        	var books_to_add_json = JSON.stringify(books);          
-        	console.log(books_to_add_json);
-        	var xhr = new XMLHttpRequest();
-       	  xhr.open('POST', 'add', true);
-       	  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-       	  xhr.send(books_to_add_json);
-
-       	  xhr.onloadend = function () {
-       	    // done
-       	  };
-       	 location.reload(); 
+        	
+            //console.log(books.length);
+            //console.log(books);
+            var myJSON = JSON.stringify(books);
+            //console.log(myJSON);
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                data: myJSON,
+                // This is the type of data you're expecting back from the server.
+                dataType: 'json',
+                url: 'add',
+                success: function(result){                               
+                display_results(result); 
+                $('#fileList').empty(); 
+            }});
         });
     });
+    $(document).ready(function(){
+        $('#lend_books').click(function(){ 
+            console.log("Checking what to change");
+        	$('#library_books:checkbox:checked').each(function () {
+                console.log($(this));
+            });
+            var myJSON = {'id': 1, 'status':status_enum['2']};
+            //console.log(myJSON);
+            $.ajax({
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(myJSON),
+                // This is the type of data you're expecting back from the server.
+                dataType: 'json',
+                url: 'update',
+                success: function(result){                               
+                    edit_dates(result); 
+                
+            }});
+        });
+    });
+    $(document).ready(function(){
+        $('#delete_books').click(function(){ 
+            console.log("Checking what to change");
+        	$('#library_books:checkbox:checked').each(function () {
+                console.log($(this));
+            });
+            var myJSON = {'id': 10, 'status':status_enum['1']};
+            $.ajax({
+                type: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify(myJSON),
+                // This is the type of data you're expecting back from the server.
+                dataType: 'json',
+                url: 'update',
+                success: function(result){                    
+                    console.log("deleted (actually archived):"+result['id']); 
+                    console.log($("#library_books tr:eq("+result['id']+")"));                    
+                    $("#library_books tr:eq("+result['id']+")").remove();
+            }});
+        });
+    });
+    $(document).ready(function(){
+        $('#return_books').click(function(){ 
+            console.log("Checking what to change");
+        	$('#library_books:checkbox:checked').each(function () {
+                console.log($(this));
+            });
+            var myJSON = {'id': 2, 'status':status_enum['3']};
+            //console.log(myJSON);
+            $.ajax({
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(myJSON),
+                // This is the type of data you're expecting back from the server.
+                dataType: 'json',
+                url: 'update',
+                success: function(result){              
+                    edit_dates(result);                 
+            }});
+        });
+    });
+    $(document).ready(function(){
+        var json_obj = {{data|tojson|safe}};       
+        
+        $.each({{status|tojson|safe}},function(i, value){
+            status_enum[Object.keys(value)[0]] = Object.values(value)[0]; 
+            console.log(status_enum[i]);
+        });
+        display_results(json_obj);
+        
+    });
+    
     $(document).ready(function(){
         $('#choose_file').change(function(e){
-					var fileInput = document.getElementById('choose_file');
-					$.each( fileInput.files, function(i, file) {
-						if ( /\.(txt|csv)$/i.test(file.name)){ /* only .txt and .csv files allowed */
-							$('#fileList').prepend( $("<li>").append( file.name ));
-							files.push(file);
-						};
-  	 			});
+            var fileInput = document.getElementById('choose_file');
+            $.each( fileInput.files, function(i, file) {
+                if ( /\.(txt|csv)$/i.test(file.name)){ /* only .txt and .csv files allowed */
+                    $('#fileList').prepend( $("<li>").append( file.name ));
+                    //files.push(file);
+                    add_file_books(file)
+                      
+                };
+            });
         });
     });
     $(document).ready(function(){
-   		  $('#choose_file').value = null;   		  
+        $('#library_books td').dblclick(function(){
+            var $this = $(this);
+            var row = $this.closest("tr");
+            //var id = row.data("id");
+            edit_row(row)
+        });
     });
+    function edit_row(row){        
+        $.each(row, function () {
+            if($(this).prop('contenteditable') == "true"){
+                $(this).prop('contenteditable', false)
+                $(this).prop('style', '')
+                
+            }
+            else{
+                
+                $(this).prop('contenteditable', true)
+                $(this).prop('style', 'background: yellow')
+            }
+            console.log($(this).prop('contenteditable'));
+        });
+    };
+    function edit_dates(json){   
+        $.each(json, function(i,row){
+            $("#library_books tr:eq("+row['id']+") td:eq(6)").prop('textContent',row['lend_date']);
+            $("#library_books tr:eq("+row['id']+") td:eq(7)").prop('textContent',row['return_date']);            
+        });
+    };
+    function display_results(json_obj){
+        $.each(json_obj, function(i, obj) {
+            //console.log(obj)
+            $("#library_books")
+                .append($('<tr>')
+                    .append($('<td>')
+                        .text(obj['id'])
+                    )
+                    .append($('<td>')
+                        .text(obj['isbn'])
+                    )
+                    .append($('<td>')
+                        .text(obj['title'])
+                    )
+                    .append($('<td>')
+                        .text(obj['author'])
+                    )
+                    .append($('<td>')
+                        .text(obj['publish_date'])
+                    )
+                    .append($('<td>')
+                        .text(status_enum[obj['status']])
+                    )
+                    .append($('<td>')
+                        .text(obj['lend_date'])
+                    )
+                    .append($('<td>')
+                        .text(obj['return_date'])
+                    )
+                    .append($('<td>')
+                        .text(obj['location_tag'])
+                    )
+                    .append($('<td>')
+                        .append($('<div class="btn-group-toggle" data-toggle="buttons">')
+                            .append($('<label class="btn btn-success active">')
+                                .append($('<input id="lend_'+obj['id']+ '"  type="checkbox"  autocomplete="off">')
+                                )
+                            )
+                            .append($('<label class="btn btn-danger active">')
+                                .append($('<input id="change_'+obj['id']+ '"  type="checkbox"  autocomplete="off">')
+                                )
+                            )
+                        )
+                    )
+                );
+            //$('#library_books').append( $("<tr>").append( result ));                      
+        });
+    };
+    function add_file_books(file) {
+        var reader = new FileReader();
+        //console.log(files[i].name);  
+        reader.onloadend = function( event ) {
+            var lines = this.result.split('\n');
+            for(var line = 0; line < lines.length; line++){
+          //console.log(lines[line]);
+          values = lines[line].split(/[,;]/)
+          //console.log(lines[line]);
+          if(values.length >= 4){				
+            var book = {author:values[3], title:values[0],isbn:values[2],publish_date:values[1]}
+            books.push(book);
+              };
+            };
+        };              
+        reader.readAsText(file);
+    };
+    $(document).ready(function(){
+        $(':checkbox').change(function(){
+            if($(this).prop('checked') == "true"){
+                console.log($(this))
+                console.log($(this).prop('checked', true))
+                if($(this).prop('id').slice(0, 4) == "lend"){
+                    $(this).prop('style', 'background: green')
+                }
+                else if($(this).prop('id').slice(0, 6) == "change"){
+                    $(this).prop('style', 'background: red')
+                }
+                else{
+                    $(this).prop('style', '')
+                }
+            }
+            else{                
+                $(this).prop('style', '')
+            }
+        });        
+    });
+    
     $(document).ready(function(){
         $('#dragndrop_area').on({
             'dragover dragenter': function(e) {
@@ -172,13 +345,6 @@
                     	if ( /\.(txt|csv)$/i.test(file.name) ) {
                     		files.push(file);
                     		$('#fileList').prepend( $("<li>").append( file.name ));
-                    		/*
-	                      var reader = new FileReader();
-	                      reader.onload = $.proxy(function(file, $fileList, event) {
-	                        $fileList.prepend( $("<li>").append( file.name ) );
-	                      }, this, file, $("#fileList"));
-	                      
-	                      reader.readAsDataURL(file);*/
                     	}
                     });
                 }

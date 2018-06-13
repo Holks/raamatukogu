@@ -39,7 +39,10 @@ def add_book():
             objects.append(book_to_add)
         db.session.bulk_save_objects(objects)
         db.session.commit()
-    new_books_in_library = Book.query.filter(Book.id>last_id[0]).filter(Book.status != Status.archived.value).all()
+    if last_id:
+        new_books_in_library = Book.query.filter(Book.id>last_id[0]).filter(Book.status != Status.archived.value).all()
+    else:
+        new_books_in_library = Book.query.filter(Book.status != Status.archived.value).all()
     json_list=[book.serialize for i,book in enumerate(new_books_in_library)]
     return jsonify(json_list)
     
@@ -61,18 +64,20 @@ def edit_book():
             else:
                 return '',402
         elif request.method == 'PUT':
+            json_list = []
             for item in json_obj:
-                print(json_obj,json_obj['id'],json_obj['status'], Status.present.name)
-                change_book = Book.query.filter(Book.id==json_obj['id']).filter(Book.status != Status.archived.value).first()
-                if json_obj['status'] == Status.present.name:
+                print(item,item['id'],item['status'])
+                change_book = Book.query.filter(Book.id==item['id']).filter(Book.status != Status.archived.value).first()
+                if item['status'] == Status.borrowed.name:
                     change_book.lend_date = date.today()
                     change_book.return_date = change_book.lend_date + timedelta(days=21)
-                elif json_obj['status'] == Status.borrowed.name:
+                elif item['status'] == Status.present.name:
                     change_book.lend_date = None
                     change_book.return_date = None
                 db.session.commit()
-                change_book = Book.query.filter(Book.id==json_obj['id']).filter(Book.status != Status.archived.value).all()
-                json_list=[book.serialize for i,book in enumerate(change_book)]
+                change_book = Book.query.filter(Book.id==item['id']).filter(Book.status != Status.archived.value).first()
+                json_list.append(change_book.serialize)
+            print(json_list)
             return jsonify(json_list)                
         else:
             return '',401

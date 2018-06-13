@@ -113,8 +113,24 @@
         $('#submit').click(function(){ 
         	
             //console.log(books.length);
-            //console.log(books);
-            var myJSON = JSON.stringify(books);
+            console.log(books);
+            console.log($('#author').prop('value') && $('#title').prop('value') && $('#isbn').prop('value') && $('#publish_date').prop('value'));
+            
+            
+            if($('#author').prop('value') && $('#title').prop('value') && $('#isbn').prop('value') && $('#publish_date').prop('value')){
+                var JSobj = {'author':$('#author').prop('value'), 
+                            'title':$('#title').prop('value'),
+                            'isbn':$('#isbn').prop('value'),
+                            'publish_date':$('#publish_date').prop('value')};
+                books.push(JSobj);
+            };
+            console.log(books);
+            if (books) {
+                var myJSON = JSON.stringify(books);
+            }
+            else{
+                return;
+            }
             //console.log(myJSON);
             $.ajax({
                 type: 'POST',
@@ -131,12 +147,10 @@
     });
     $(document).ready(function(){
         $('#lend_books').click(function(){ 
-            console.log("Checking what to change");
-        	$('#library_books:checkbox:checked').each(function () {
-                console.log($(this));
+            var myJSON = [];         
+        	$(".lend:checked" ).each(function () {
+                myJSON.push({'id': $(this).closest('tr').find("td").eq(0).prop('textContent'), 'status':status_enum['3']});
             });
-            var myJSON = {'id': 1, 'status':status_enum['2']};
-            //console.log(myJSON);
             $.ajax({
                 type: 'PUT',
                 contentType: 'application/json',
@@ -152,9 +166,11 @@
     });
     $(document).ready(function(){
         $('#delete_books').click(function(){ 
-            console.log("Checking what to change");
-        	$('#library_books:checkbox:checked').each(function () {
-                console.log($(this));
+            console.log("Checking what to delete");            
+        	$(".delete" ).each(function () {
+                if($(this).prop('checked') == true){
+                    console.log($(this));
+                };
             });
             var myJSON = {'id': 10, 'status':status_enum['1']};
             $.ajax({
@@ -173,9 +189,11 @@
     });
     $(document).ready(function(){
         $('#return_books').click(function(){ 
-            console.log("Checking what to change");
-        	$('#library_books:checkbox:checked').each(function () {
-                console.log($(this));
+            console.log("Checking what to return");            
+        	$(".return" ).each(function () {
+                if($(this).prop('checked') == true){
+                    console.log($(this));
+                };
             });
             var myJSON = {'id': 2, 'status':status_enum['3']};
             //console.log(myJSON);
@@ -238,8 +256,10 @@
             console.log($(this).prop('contenteditable'));
         });
     };
-    function edit_dates(json){   
+    function edit_dates(json){
+        console.log(json);
         $.each(json, function(i,row){
+            console.log(row);
             $("#library_books tr:eq("+row['id']+") td:eq(6)").prop('textContent',row['lend_date']);
             $("#library_books tr:eq("+row['id']+") td:eq(7)").prop('textContent',row['return_date']);            
         });
@@ -278,12 +298,16 @@
                     )
                     .append($('<td>')
                         .append($('<div class="btn-group-toggle" data-toggle="buttons">')
-                            .append($('<label class="btn btn-success active">')
-                                .append($('<input id="lend_'+obj['id']+ '"  type="checkbox"  autocomplete="off">')
+                            .append($('<label class="btn btn-success">')
+                                .append($('<input id="lend_'+obj['id']+ '" class="lend" type="checkbox"  autocomplete="off">')
                                 )
                             )
-                            .append($('<label class="btn btn-danger active">')
-                                .append($('<input id="change_'+obj['id']+ '"  type="checkbox"  autocomplete="off">')
+                            .append($('<label class="btn btn-danger">')
+                                .append($('<input id="delete_'+obj['id']+ '" class="delete" type="checkbox"  autocomplete="off">')
+                                )
+                            )
+                            .append($('<label class="btn btn-info">')
+                                .append($('<input id="return_'+obj['id']+ '" class="return" type="checkbox"  autocomplete="off">')
                                 )
                             )
                         )

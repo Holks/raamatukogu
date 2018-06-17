@@ -1,85 +1,50 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
+    <ul id="pagination" class="pagination-sm"></ul>
+    <div class="search">
+        <input id="search_string" type="text" placeholder="Search.." name="search2">
+        <button id="search_books" type="submit"><i class="fa fa-search"></i></button>
+    </div>
 	<table class="table" id="library_books">
-		<tr>
-				<td>
-					Database id
-				</td>
-				<td>
-					ISBN
-				</td>
-				<td>
-					TITLE
-				</td>
-				<td>
-					AUTHOR
-				</td>
-				<td>
-					PUBLISHED
-				</td>
-				<td>
-					STATUS
-				</td>
-				<td>
-					LEND DATE
-				</td>
-				<td>
-					RETURN DATE
-				</td>
-				<td>
-					LOCATION
-				</td>
-				<td>		 
-					LEND DELETE
-				</td>	
-			</tr>
-		<!-- {% for book in books %}
-			<tr>
-				<td>
-					{{ book.id }}
-				</td>
-				<td>
-					{{ book.isbn }}
-				</td>
-				<td>
-					{{ book.title }}
-				</td>
-				<td>
-					{{ book.author }}
-				</td>
-				<td>
-					{{ book.publish_date }}
-				</td>
-				<td>
-					{{ book.status }}
-				</td>
-				<td>
-					{{ book.lend_date }}
-				</td>
-				<td>
-					{{ book.return_date }}
-				</td>
-				<td>
-					{{ book.location_tag }}
-				</td>
-				<td>
-				
-				<div class="btn-group-toggle" data-toggle="buttons">
-				  <label class="btn btn-secondary active">
-				    <input id="lend_{{ book.id }}"  type="checkbox" checked autocomplete="off"> Checked
-				  </label>
-				</div>		 
-				</td>	
-				<td >		
-					<div class="btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-secondary active">
-					    <input id="change_{{ book.id }}"  type="checkbox" checked autocomplete="off"> Checked
-					  </label>
-					</div>	
-				</td>	
-			</tr>
-		{% endfor %} --> 
+        <thead>    
+            <tr>
+                <td>
+                    Database id
+                </td>
+                <td>
+                    ISBN
+                </td>
+                <td>
+                    TITLE
+                </td>
+                <td>
+                    AUTHOR
+                </td>
+                <td>
+                    PUBLISHED
+                </td>
+                <td>
+                    STATUS
+                </td>
+                <td>
+                    LEND DATE
+                </td>
+                <td>
+                    RETURN DATE
+                </td>
+                <td>
+                    LOCATION
+                </td>
+                <td style="width:100">		 
+                    LEND RETURN DELETE
+                </td>	
+            </tr>
+        </thead>  
+        <tbody>    
+
+        </tbody>        
+		<!-- end of header --> 
 	</table>
 </div>
 

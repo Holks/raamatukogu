@@ -18,7 +18,7 @@ class Status(Enum):
     procesessing = 4
     
     def __repr__(self):
-        return [{row.value+1:row.name} for row in self]
+        return [{row.value:row.name} for row in self]
     
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,7 +30,7 @@ class Book(db.Model):
     lend_date = db.Column(db.DateTime, index=True)
     return_date = db.Column(db.DateTime, index=True )
     isbn = db.Column(db.String(30), index=True, nullable=False)
-    description = db.Column(db.String(1000), default='')
+    description = db.Column(db.String(1000), default='-')
     
     def __repr__(self):
         return {'id':self.id, 'title': self.title, 'status':self.status}
@@ -41,7 +41,7 @@ class Book(db.Model):
        return {
            'id'             : self.id,
            'title'          : self.title,
-           'status'         : self.status,
+           'status'         : Status(self.status).name,
            'location_tag'   : self.location_tag,
            'author'         : self.author,
            'publish_date'   : self.publish_date,

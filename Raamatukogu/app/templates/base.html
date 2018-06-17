@@ -2,29 +2,64 @@
 <html>
     <head>
     <!-- Latest compiled and minified CSS -->
-    <title>Library</title>
-   		
+    <title>Library</title>   		
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    	
-    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    	<script type="text/javascript"  src="static\jquery.twbsPagination.js"></script>
+        
+        
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">   
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     
     	<style>
 				#dragndrop_area{
 				    border: 1px dashed #CCC;
-				    width:400px;
+				    width:600px;
 				    font-family:Verdana;
 				}
 				#fileList{
 				   height:50px;
 				   line-height: 15px;
 				}
+                div.search input[type=text] {
+                    padding: 10px;
+                    font-size: 17px;
+                    border: 1px solid grey;
+                    float: left;
+                    width: 90%;
+                    background: #f1f1f1;
+                }
+
+                div.search button {
+                    float: left;
+                    width: 10%;
+                    padding: 10px;
+                    background: #2196F3;
+                    color: white;
+                    font-size: 17px;
+                    border: 1px solid grey;
+                    border-left: none;
+                    cursor: pointer;
+                }
+
+                div.search button:hover {
+                    background: #0b7dda;
+                }
+
+                div.search::after {
+                    content: "";
+                    clear: both;
+                    display: table;
+                }
 				</style>
     
     </head>
     <body>
     		<div class="jumbotron text-center">
-    		<h1>RAAMATUKOGU</h1>
+    		<h1>Library</h1>
     		</div>
         <div>
             Quick links:
@@ -42,9 +77,6 @@
 					{% endwith %}						
         </div>
         <hr align="left">
-
-
-
 				<form action="/add" method="get" id="add_books" name="add">
 					<h2>Add Book</h2>	
 					<table class="table">
@@ -94,10 +126,10 @@
 				    <td><ul id="fileList"></ul></td>
 				  </tr>
 				</table>
-				  <button type="button" name="submit" id="submit" class="btn btn-primary btn-lg btn-block">Add book(s)</button>
-                  <button type="button" name="lend" id="lend_books" class="btn btn-primary btn-lg btn-block">Lend book(s)</button></b>
-                  <button type="button" name="return" id="return_books" class="btn btn-primary btn-lg btn-block">Return book(s)</button></b>
-                  <button type="button" name="delete" id="delete_books" class="btn btn-primary btn-lg btn-block">Delete book(s)</button></b>
+				  <button type="button" name="submit" id="submit" class="btn btn-warning btn-lg btn-block">Add book(s)</button>
+                  <button type="button" name="lend" id="lend_books" class="btn btn-success btn-lg btn-block">Lend book(s)</button></b>
+                  <button type="button" name="return" id="return_books" class="btn btn-info btn-lg btn-block">Return book(s)</button></b>
+                  <button type="button" name="delete" id="delete_books" class="btn btn-danger btn-lg btn-block">Delete book(s)</button></b>
 				</form>         
         <hr align="left">
         {% block content %}{% endblock %}
@@ -108,236 +140,90 @@
     <script>
     var files = []; /* one upload of files */
     var books = [];
-    var status_enum = {};
+    var pages = {{pages}};
+    var cur_page = 1;
+    
+    if(pages <= 5){
+        var visible_pages = pages
+    }
+    else{
+        var visible_pages = 5
+    };
+    
     $(document).ready(function(){
+        $('#author').prop('value',''); 
+        $('#title').prop('value','');
+        $('#isbn').prop('value','');
+        $('#publish_date').prop('value','');
+        $('#pagination').twbsPagination({
+            totalPages: pages,
+            visiblePages: visible_pages,
+            hideOnlyOnePage: true,
+            
+            onPageClick: function (event, page) {
+                $('#page-content').text('Page ' + page);
+                $.ajax({
+                    type: 'GET',
+                    contentType: 'application/json',
+                    data: {'page':page, 'search_string':$('#search_string').prop('value')},
+                    DataType: 'json',
+                    url: 'data',
+                    success: function(result){
+                        pages  = result['paginator']['pages']
+                        totalPages = pages;
+                        console.log(pages);
+                        display_results(result['data']);                          
+                }});
+            }
+        });
+        $('#search_books').click(function(){
+            $.ajax({
+                type: 'GET',
+                contentType: 'application/json',
+                data: {'search_string':$('#search_string').prop('value')},
+                dataType: 'json',
+                url: 'data',
+                success: function(result){   
+                    console.log("Searching\n",result);
+                    pages  = result['paginator']['pages'];
+                    console.log(pages);
+                    display_results(result['data']);   
+                
+            }});
+        });
         $('#submit').click(function(){ 
-        	
-            //console.log(books.length);
-            console.log(books);
-            console.log($('#author').prop('value') && $('#title').prop('value') && $('#isbn').prop('value') && $('#publish_date').prop('value'));
-            
-            
             if($('#author').prop('value') && $('#title').prop('value') && $('#isbn').prop('value') && $('#publish_date').prop('value')){
-                var JSobj = {'author':$('#author').prop('value'), 
-                            'title':$('#title').prop('value'),
-                            'isbn':$('#isbn').prop('value'),
-                            'publish_date':$('#publish_date').prop('value')};
+                var JSobj = {'author':$('#author').prop('value').trim(), 
+                            'title':$('#title').prop('value').trim(),
+                            'isbn':$('#isbn').prop('value').trim(),
+                            'publish_date':$('#publish_date').prop('value').trim()};
                 books.push(JSobj);
+                $('#author').prop('value',''); 
+                $('#title').prop('value','');
+                $('#isbn').prop('value','');
+                $('#publish_date').prop('value','');
             };
-            console.log(books);
             if (books) {
                 var myJSON = JSON.stringify(books);
+                console.log(books);
             }
             else{
                 return;
             }
-            //console.log(myJSON);
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json',
                 data: myJSON,
-                // This is the type of data you're expecting back from the server.
                 dataType: 'json',
                 url: 'add',
-                success: function(result){                               
-                display_results(result); 
-                $('#fileList').empty(); 
+                success: function(result){
+                    console.log(result['data']);
+                    //display_results(result['data']);   
+                    $('#fileList').empty(); 
             }});
         });
-    });
-    $(document).ready(function(){
-        $('#lend_books').click(function(){ 
-            var myJSON = [];         
-        	$(".lend:checked" ).each(function () {
-                myJSON.push({'id': $(this).closest('tr').find("td").eq(0).prop('textContent'), 'status':status_enum['3']});
-            });
-            $.ajax({
-                type: 'PUT',
-                contentType: 'application/json',
-                data: JSON.stringify(myJSON),
-                // This is the type of data you're expecting back from the server.
-                dataType: 'json',
-                url: 'update',
-                success: function(result){                               
-                    edit_dates(result); 
-                
-            }});
-        });
-    });
-    $(document).ready(function(){
-        $('#delete_books').click(function(){ 
-            console.log("Checking what to delete");            
-        	$(".delete" ).each(function () {
-                if($(this).prop('checked') == true){
-                    console.log($(this));
-                };
-            });
-            var myJSON = {'id': 10, 'status':status_enum['1']};
-            $.ajax({
-                type: 'DELETE',
-                contentType: 'application/json',
-                data: JSON.stringify(myJSON),
-                // This is the type of data you're expecting back from the server.
-                dataType: 'json',
-                url: 'update',
-                success: function(result){                    
-                    console.log("deleted (actually archived):"+result['id']); 
-                    console.log($("#library_books tr:eq("+result['id']+")"));                    
-                    $("#library_books tr:eq("+result['id']+")").remove();
-            }});
-        });
-    });
-    $(document).ready(function(){
-        $('#return_books').click(function(){ 
-            console.log("Checking what to return");            
-        	$(".return" ).each(function () {
-                if($(this).prop('checked') == true){
-                    console.log($(this));
-                };
-            });
-            var myJSON = {'id': 2, 'status':status_enum['3']};
-            //console.log(myJSON);
-            $.ajax({
-                type: 'PUT',
-                contentType: 'application/json',
-                data: JSON.stringify(myJSON),
-                // This is the type of data you're expecting back from the server.
-                dataType: 'json',
-                url: 'update',
-                success: function(result){              
-                    edit_dates(result);                 
-            }});
-        });
-    });
-    $(document).ready(function(){
-        var json_obj = {{data|tojson|safe}};       
-        
-        $.each({{status|tojson|safe}},function(i, value){
-            status_enum[Object.keys(value)[0]] = Object.values(value)[0]; 
-            console.log(status_enum[i]);
-        });
-        display_results(json_obj);
-        
-    });
-    
-    $(document).ready(function(){
-        $('#choose_file').change(function(e){
-            var fileInput = document.getElementById('choose_file');
-            $.each( fileInput.files, function(i, file) {
-                if ( /\.(txt|csv)$/i.test(file.name)){ /* only .txt and .csv files allowed */
-                    $('#fileList').prepend( $("<li>").append( file.name ));
-                    //files.push(file);
-                    add_file_books(file)
-                      
-                };
-            });
-        });
-    });
-    $(document).ready(function(){
-        $('#library_books td').dblclick(function(){
-            var $this = $(this);
-            var row = $this.closest("tr");
-            //var id = row.data("id");
-            edit_row(row)
-        });
-    });
-    function edit_row(row){        
-        $.each(row, function () {
-            if($(this).prop('contenteditable') == "true"){
-                $(this).prop('contenteditable', false)
-                $(this).prop('style', '')
-                
-            }
-            else{
-                
-                $(this).prop('contenteditable', true)
-                $(this).prop('style', 'background: yellow')
-            }
-            console.log($(this).prop('contenteditable'));
-        });
-    };
-    function edit_dates(json){
-        console.log(json);
-        $.each(json, function(i,row){
-            console.log(row);
-            $("#library_books tr:eq("+row['id']+") td:eq(6)").prop('textContent',row['lend_date']);
-            $("#library_books tr:eq("+row['id']+") td:eq(7)").prop('textContent',row['return_date']);            
-        });
-    };
-    function display_results(json_obj){
-        $.each(json_obj, function(i, obj) {
-            //console.log(obj)
-            $("#library_books")
-                .append($('<tr>')
-                    .append($('<td>')
-                        .text(obj['id'])
-                    )
-                    .append($('<td>')
-                        .text(obj['isbn'])
-                    )
-                    .append($('<td>')
-                        .text(obj['title'])
-                    )
-                    .append($('<td>')
-                        .text(obj['author'])
-                    )
-                    .append($('<td>')
-                        .text(obj['publish_date'])
-                    )
-                    .append($('<td>')
-                        .text(status_enum[obj['status']])
-                    )
-                    .append($('<td>')
-                        .text(obj['lend_date'])
-                    )
-                    .append($('<td>')
-                        .text(obj['return_date'])
-                    )
-                    .append($('<td>')
-                        .text(obj['location_tag'])
-                    )
-                    .append($('<td>')
-                        .append($('<div class="btn-group-toggle" data-toggle="buttons">')
-                            .append($('<label class="btn btn-success">')
-                                .append($('<input id="lend_'+obj['id']+ '" class="lend" type="checkbox"  autocomplete="off">')
-                                )
-                            )
-                            .append($('<label class="btn btn-danger">')
-                                .append($('<input id="delete_'+obj['id']+ '" class="delete" type="checkbox"  autocomplete="off">')
-                                )
-                            )
-                            .append($('<label class="btn btn-info">')
-                                .append($('<input id="return_'+obj['id']+ '" class="return" type="checkbox"  autocomplete="off">')
-                                )
-                            )
-                        )
-                    )
-                );
-            //$('#library_books').append( $("<tr>").append( result ));                      
-        });
-    };
-    function add_file_books(file) {
-        var reader = new FileReader();
-        //console.log(files[i].name);  
-        reader.onloadend = function( event ) {
-            var lines = this.result.split('\n');
-            for(var line = 0; line < lines.length; line++){
-          //console.log(lines[line]);
-          values = lines[line].split(/[,;]/)
-          //console.log(lines[line]);
-          if(values.length >= 4){				
-            var book = {author:values[3], title:values[0],isbn:values[2],publish_date:values[1]}
-            books.push(book);
-              };
-            };
-        };              
-        reader.readAsText(file);
-    };
-    $(document).ready(function(){
         $(':checkbox').change(function(){
             if($(this).prop('checked') == "true"){
-                console.log($(this))
-                console.log($(this).prop('checked', true))
                 if($(this).prop('id').slice(0, 4) == "lend"){
                     $(this).prop('style', 'background: green')
                 }
@@ -351,10 +237,136 @@
             else{                
                 $(this).prop('style', '')
             }
-        });        
-    });
-    
-    $(document).ready(function(){
+        }); 
+        $('#lend_books').click(function(){ 
+            var myJSON = []; 
+        	$(".lend:checked" ).each(function () {
+                myJSON.push({'id': $(this).closest('tr').find("td").eq(0).prop('textContent'), 'status':'borrowed'});
+                $(this).trigger( "click" );
+            });
+            $.ajax({
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(myJSON),
+                dataType: 'json',
+                url: 'update',
+                success: function(result){   
+                    console.log("Book(s) borrowed\n",result);
+                    edit_dates(result); 
+                
+            }});
+        });
+        $('#delete_books').click(function(){ 
+            var myJSON = [];  
+            console.log($('#pagination li[class="page-item active"] a').text());
+        	$(".delete:checked" ).each(function () {            
+                myJSON.push({'id': $(this).closest('tr').find("td").eq(0).prop('textContent'), 'status':'archived'});
+                $(this).trigger( "click" );
+            });  
+            $.ajax({
+                type: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify({'data' : myJSON, 'paginator':{'page':$('#pagination li[class="page-item active"] a').text()}, 'search_string':$('#search_string').prop('value')}),
+                dataType: 'json',
+                url: 'update',
+                success: function(result){ 
+                    console.log("Book(s) deleted\n",result);   
+                    pages  = result['paginator']['pages'];
+                    console.log(pages);
+                    display_results(result['data']);  
+                    /*
+                    $.each(result ,function(i, value){
+                        $("#library_books td:first-child:contains('"+ value['id'] +"')").closest('tr').remove();
+                    });*/
+            }});            
+        });
+        $('#return_books').click(function(){ 
+            var myJSON = [];         
+        	$(".return:checked" ).each(function () {
+                myJSON.push({'id': $(this).closest('tr').find("td").eq(0).prop('textContent'), 'status':'present'});
+                $(this).trigger( "click" );
+            }); 
+            $.ajax({
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(myJSON),
+                dataType: 'json',
+                url: 'update',
+                success: function(result){
+                    console.log("Book(s) returned\n",result);                
+                    edit_dates(result);                 
+            }});
+        });
+        $('#choose_file').change(function(e){
+            var fileInput = document.getElementById('choose_file');
+            $.each( fileInput.files, function(i, file) {
+                if ( /\.(txt|csv)$/i.test(file.name)){ /* only .txt and .csv files allowed */
+                    $('#fileList').prepend( $("<li>").append( file.name ));
+                    add_file_books(file);                      
+                };
+            });
+        });
+        $(document).on('dblclick', '#library_books tbody tr', function(){        
+            var $this = $(this);
+            var row = $this.closest("tr");
+            edit_row(row)
+        });
+        $(document).on('change', '.lend', function(){
+        
+            console.log($(this));
+            if($(this).prop('checked')){
+                $(this).closest('tr').prop('style', 'background: MediumSeaGreen');
+            }
+            else{
+                $(this).closest('tr').prop('style', '');
+            };
+        });
+        $(document).on('change','.delete', function(){
+            if($(this).prop('checked')){
+                $(this).closest('tr').prop('style', 'background: Tomato');
+            }
+            else{
+                $(this).closest('tr').prop('style', '');
+            };
+        });
+        $(document).on('change','.return', function(){
+            if($(this).prop('checked')){
+                $(this).closest('tr').prop('style', 'background: DodgerBlue');
+            }
+            else{
+                $(this).closest('tr').prop('style', '');
+            };        
+        });
+        
+        $(document).on('click','#save', function(){
+            var row = $(this).closest('tr');
+            var myJSON = [{'id': row.children('td:eq(0)').prop('textContent'), 
+                          'title': row.children('td:eq(2)').prop('textContent'), 
+                          'author': row.children('td:eq(3)').prop('textContent'),
+                          'publish_date': row.children('td:eq(4)').prop('textContent'),
+                          'location_tag': row.children('td:eq(8)').prop('textContent'),
+                          'isbn': row.children('td:eq(1)').prop('textContent'), 
+                          'description':row.next('tr').find('textarea').prop('value')}];
+            $.ajax({
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(myJSON),
+                dataType: 'json',
+                url: 'edit',
+                success: function(result){  
+                    row.children('td:eq(0)').prop('textContent', result[0]['id']);
+                    row.children('td:eq(1)').prop('textContent', result[0]['isbn']);
+                    row.children('td:eq(2)').prop('textContent', result[0]['title']);
+                    row.children('td:eq(3)').prop('textContent', result[0]['author']);
+                    row.children('td:eq(4)').prop('textContent', result[0]['publish_date']);
+                    row.children('td:eq(8)').prop('textContent', result[0]['location_tag']);
+                    row.children('td:eq(2)').attr('data-balloon', result[0]['description']);
+                    row.prop('style', '');
+                    row.next('tr').remove();
+                    $('#save').remove();
+                    
+            }});
+        }); 
         $('#dragndrop_area').on({
             'dragover dragenter': function(e) {
                 e.preventDefault();
@@ -375,6 +387,119 @@
             }
         });
     });
+    function edit_row(row){ 
+        if(row.has("#save").length){
+            row.children('td:eq(1)').prop('contenteditable', false);
+            row.children('td:eq(2)').prop('contenteditable', false);
+            row.children('td:eq(3)').prop('contenteditable', false);
+            row.children('td:eq(4)').prop('contenteditable', false);
+            row.children('td:eq(8)').prop('contenteditable', false);
+            row.prop('style', '');
+            
+            row.find('#save').remove(); 
+            row.next('tr').remove();
+        }
+        else{
+            row.children('td:eq(1)').prop('contenteditable', true);
+            row.children('td:eq(2)').prop('contenteditable', true);
+            row.children('td:eq(3)').prop('contenteditable', true);
+            row.children('td:eq(4)').prop('contenteditable', true);
+            row.children('td:eq(8)').prop('contenteditable', true);
+                        
+            row.prop('style', 'background: yellow'); 
+            
+            row.append($('<button id="save" type="button" class="save">Save changes</button >'));
+            row.after('<tr id="description"><td colspan="8"><textarea placeholder="Book description here!" rows="3" cols="100">'+row.children('td:eq(2)').attr('data-balloon')+'</textarea></td></tr>');
+            
+        }
+    };
+    function edit_dates(json){
+        $.each(json, function(i,value){
+            var row = $("#library_books tbody td:first-child:contains('"+ value['id'] +"')").closest('tr');
+            if(value['lend_date']){
+                row.find('td:eq(6)').prop('textContent',value['lend_date'].toString());
+            }
+            else{            
+                row.find('td:eq(6)').prop('textContent',"");
+            }
+            if(value['lend_date']){
+                row.find('td:eq(7)').prop('textContent',value['return_date'].toString());
+            }
+            else{            
+                row.find('td:eq(7)').prop('textContent',"");
+            }
+        });
+    };
+    function display_results(json_obj){
+        $('#library_books tbody').remove();
+        $.each(json_obj, function(i, obj) {
+            $("#library_books")
+                .append($('<tbody>')
+                    .append($('<tr>')
+                        .append($('<td>')
+                            .text(obj['id'])
+                        )
+                        .append($('<td>')
+                            .text(obj['isbn'])
+                        )
+                        .append($('<td data-balloon-length="large" data-balloon="' + obj['description'] +'" data-balloon-pos="up">')
+                            .text(obj['title'])
+                        )
+                        .append($('<td>')
+                            .text(obj['author'])
+                        )
+                        .append($('<td>')
+                            .text(obj['publish_date'])
+                        )
+                        .append($('<td>')
+                            .text(obj['status'])
+                        )
+                        .append($('<td>')
+                            .text(obj['lend_date'])
+                        )
+                        .append($('<td>')
+                            .text(obj['return_date'])
+                        )
+                        .append($('<td>')
+                            .text(obj['location_tag'])
+                        )
+                        .append($('<td>')
+                            .append($('<div class="btn-group-toggle" data-toggle="buttons">')
+                                .append($('<label class="btn btn-success">')
+                                    .append($('<input id="lend_'+obj['id']+ '" class="lend" type="checkbox"  autocomplete="off">')
+                                    )
+                                )
+                                .append($('<label class="btn btn-info">')
+                                    .append($('<input id="return_'+obj['id']+ '" class="return" type="checkbox"  autocomplete="off">')
+                                    )
+                                )
+                                .append($('<label class="btn btn-danger">')
+                                    .append($('<input id="delete_'+obj['id']+ '" class="delete" type="checkbox"  autocomplete="off">')
+                                    )
+                                )
+                                
+                            )
+                        )
+                    )
+                );
+        });
+    };
+    function add_file_books(file) {
+        var reader = new FileReader();
+        reader.onloadend = function( event ) {
+            var lines = this.result.split('\n');
+            for(var line = 0; line < lines.length; line++){
+          values = lines[line].split(/[,;]/)
+          if(values.length >= 4){				
+            var book = {author:values[3].trim(), title:values[0].trim(),isbn:values[2].trim(),publish_date:values[1].trim()}
+            books.push(book);
+              };
+            };
+        };              
+        reader.readAsText(file);
+    };
     
     </script>
 {% endblock %}
+
+   

@@ -1,8 +1,7 @@
 # raamatukogu
+Lahendus:
+-flask
+-MYSQL
+flask development server võimalik käivitada win peal webServer.cmd, linuxil vaja vähe muudatusi teha. 
 
-Raamatukogu lahendus:
-- server (http.server - localhost:8080)
-- klient (requests + CLI)
-- andmebaas (pymysql + CLI)
-Andmebaas loodud RaamatuteAndmebaas.py moodulist. Eelduseks olemasolev töötav MySQL 5.7 server kuhu andmebaas laetakse.
-
+vajalikud moodulid failis requirements.txt
